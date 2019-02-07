@@ -27,6 +27,22 @@
 
       // INSTANTIATE CONTROLLER CLASS
       $this->currentController = new $this->currentController;
+
+      // CHECK FOR SECOND PART OF URL
+      if(isset($url[1])){
+        // CHECK TO SEE IF METHOD EXISTS IN CONTROLLER
+        if(method_exists($this->currentController, $url[1])){
+          $this->currentMethod = $url[1];
+          // UNSET 1 INDEX
+          unset($url[1]);
+        }
+      }
+      
+      // GET PARAMS
+      $this->params = $url ? array_values($url) : [];
+
+      // CALL A CALLBACK WITH ARRAY OF PARAMS
+      call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
     }
 
     public function getUrl(){
