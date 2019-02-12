@@ -1,1 +1,1 @@
-HOME PAGE
+<h1><?php echo $data['title']?></h1>
